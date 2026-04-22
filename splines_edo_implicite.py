@@ -40,7 +40,15 @@ def splines_edo_implicite(alpha, beta, f, t0, tf, N):
         dp_i = lambda C: 3*C[0]*(ti+h)**2 + 2*C[1]*(ti+h) + C[2]
 
         # A COMPLETER
+        F = lambda x: [
+            x[0]*ti**3 + x[1]*ti**2 + x[2]*ti + x[3] - yi,
+            3*x[0]*ti**2 + 2*x[1]*ti + x[2] - dyi,
+            6*x[0]*ti + 2*x[1] - f(ti, yi, dyi),
+            6*x[0]*(ti+h) + 2*x[1] - f(ti+h, p_i(x), dp_i(x))
+        ]
         # F = lambda x: ...
+
+
 
         sol = fsolve(F, C)
         coeffs.append(sol)
