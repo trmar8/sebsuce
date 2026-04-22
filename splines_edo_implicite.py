@@ -46,7 +46,6 @@ def splines_edo_implicite(alpha, beta, f, t0, tf, N):
             6*x[0]*ti + 2*x[1] - f(ti, yi, dyi),
             6*x[0]*(ti+h) + 2*x[1] - f(ti+h, p_i(x), dp_i(x))
         ]
-        # F = lambda x: ...
 
 
 
