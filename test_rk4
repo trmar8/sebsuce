@@ -1,0 +1,45 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from rk4 import rk4 # Assure-toi que rk4.py est dans le même dossier
+
+# 1. Conditions initiales
+t0, tf = np.pi/4, 3
+alpha = (np.sqrt(2)/2) * np.exp(np.pi/4)
+beta = np.sqrt(2) * np.exp(np.pi/4)
+
+def solution(t):
+    return np.exp(t) * np.sin(t)
+
+# 2. Le système d'EDO
+def systeme(t, Y):
+    y = Y[0]
+    dy = Y[1]
+    y_prime = dy
+    dy_prime = 2*dy - 2*np.exp(t)*np.sin(t)
+    return np.array([y_prime, dy_prime])
+
+# 3. Résolution RK4
+h_16 = (tf - t0) / 16
+Y0 = [alpha, beta]
+
+ti, Yi = rk4(systeme, t0, tf, Y0, h_16)
+
+# On gère l'extraction selon le format de ta matrice
+if Yi.shape[0] > Yi.shape[1]:
+    y_rk4_16 = Yi[:, 0]
+else:
+    y_rk4_16 = Yi[0, :]
+
+# 4. Affichage simple
+t_lisse = np.linspace(t0, tf, 200)
+
+plt.figure(3)
+plt.plot(t_lisse, solution(t_lisse), 'k-', label='Solution exacte', linewidth=2)
+plt.plot(ti, y_rk4_16, 'bx:', label='RK4 (N=16)', markersize=8)
+
+plt.xlabel('Temps t')
+plt.ylabel('y(t)')
+plt.title('Test Isolé : RK4 vs Solution Exacte')
+plt.legend()
+plt.grid(True)
+plt.show()
