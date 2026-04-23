@@ -38,7 +38,7 @@ plt.plot(t_lisse, solution(t_lisse), 'k-', label='Solution exacte')
 plt.plot(t_noeuds_16, y_spline_16, 'ro--', label='Spline cubique (N=16)')
 plt.xlabel('Temps t')
 plt.ylabel('y(t)')
-plt.title('Approximation Spline Cubique vs Solution Exacte')
+plt.title('Figure 1: Approximation Spline Cubique vs Solution Exacte')
 plt.grid(True)
 
 
@@ -60,7 +60,7 @@ plt.figure(2)
 plt.loglog(liste_h, liste_erreur, 'o-', label='Erreur globale $E(h)$')
 plt.xlabel('Pas h')
 plt.ylabel('Erreur Globale E(h)')
-plt.title("Convergence de l'erreur en fonction du pas h")
+plt.title("Figure 2: Convergence de l'erreur en fonction du pas h")
 plt.grid(True)
 
 # --- FIGURE 3 : Comparaison avec RK4 ---
@@ -80,14 +80,10 @@ Y0 = [alpha, beta]
 ti, Yi = rk4(systeme, t0, tf, Y0, h_16)
 y_rk4_16 = Yi[0, :]
 
-print("   -> Lancement de la fonction rk4...")
-ti, Yi = rk4(systeme, t0, tf, Y0, h_16_rk4)
-print("   -> rk4 terminé. Extraction des données...")
-
-if Yi.shape[0] > Yi.shape[1]:
-    y_rk4_16 = Yi[:, 0] 
-else:
-    y_rk4_16 = Yi[0, :]
+#if Yi.shape[0] > Yi.shape[1]:
+#    y_rk4_16 = Yi[:, 0] 
+#else:
+#    y_rk4_16 = Yi[0, :]
 
 plt.figure(3)
 plt.plot(t_lisse, solution(t_lisse), 'k-', label='Solution exacte')
@@ -97,7 +93,5 @@ plt.xlabel('Temps t')
 plt.ylabel('y(t)')
 plt.title('Figure 3 : Comparaison des méthodes numériques (N=16)')
 plt.grid(True)
-
-print("--- Génération des graphiques (Vérifie tes fenêtres !) ---")
 
 plt.show()
