@@ -63,8 +63,6 @@ plt.ylabel('Erreur Globale E(h)')
 plt.title("Figure 2: Convergence de l'erreur en fonction du pas h")
 plt.grid(True)
 
-# --- FIGURE 3 : Comparaison avec RK4 ---
-
 def systeme(t, Y):
     y = Y[0]
     dy = Y[1]
@@ -79,11 +77,6 @@ Y0 = [alpha, beta]
 
 ti, Yi = rk4(systeme, t0, tf, Y0, h_16)
 y_rk4_16 = Yi[0, :]
-
-#if Yi.shape[0] > Yi.shape[1]:
-#    y_rk4_16 = Yi[:, 0] 
-#else:
-#    y_rk4_16 = Yi[0, :]
 
 plt.figure(3)
 plt.plot(t_lisse, solution(t_lisse), 'k-', label='Solution exacte')
