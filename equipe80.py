@@ -29,7 +29,8 @@ def spline_aux_noeuds(N):
         y_approx[i+1] = a*t_suivant**3 + b*t_suivant**2 + c*t_suivant + d
 
     return t_noeuds, y_approx, h
-# --- FIGURE 1 : Splines Cubiques (N=16) ---
+
+
 t_noeuds_16, y_spline_16, h_16 = spline_aux_noeuds(16)
 t_lisse = np.linspace(t0, tf, 200)
 
@@ -39,6 +40,7 @@ plt.plot(t_noeuds_16, y_spline_16, 'ro--', label='Spline cubique (N=16)')
 plt.xlabel('Temps t')
 plt.ylabel('y(t)')
 plt.title('Figure 1: Approximation Spline Cubique vs Solution Exacte')
+plt.legend()
 plt.grid(True)
 
 
@@ -56,11 +58,15 @@ for N in liste_N:
     liste_h.append(h)
     liste_erreur.append(erreur_globale)
 
+pente = (np.log(liste_erreur[-1]) - np.log(liste_erreur[0])) / (np.log(liste_h[-1]) - np.log(liste_h[0]))
+print(pente)
+
 plt.figure(2)
 plt.loglog(liste_h, liste_erreur, 'o-', label='Erreur globale $E(h)$')
 plt.xlabel('Pas h')
 plt.ylabel('Erreur Globale E(h)')
 plt.title("Figure 2: Convergence de l'erreur en fonction du pas h")
+plt.legend()
 plt.grid(True)
 
 def systeme(t, Y):
@@ -85,6 +91,7 @@ plt.plot(ti, y_rk4_16, 'bx:', label='RK4 (N=16)', markersize=8)
 plt.xlabel('Temps t')
 plt.ylabel('y(t)')
 plt.title('Figure 3 : Comparaison des méthodes numériques (N=16)')
+plt.legend()
 plt.grid(True)
 
 plt.show()
