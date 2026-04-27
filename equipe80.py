@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from splines_edo_implicite import splines_edo_implicite
 from rk4 import rk4
 
-
-#pvi du seconde ordre
 t0, tf = np.pi/4, 3
 alpha = (np.sqrt(2)/2) * np.exp(np.pi/4)
 beta = np.sqrt(2) * np.exp(np.pi/4)
@@ -78,16 +76,15 @@ def systeme(t, Y):
 
     return np.array([y_prime, dy_prime])
 
-h_16_rk4 = (tf - t0) / 16
 Y0 = [alpha, beta]
 
 ti, Yi = rk4(systeme, t0, tf, Y0, h_16)
-y_rk4_16 = Yi[0, :]
+y_rk4 = Yi[0, :]
 
 plt.figure(3)
 plt.plot(t_lisse, solution(t_lisse), 'k-', label='Solution exacte')
 plt.plot(t_noeuds_16, y_spline_16, 'ro--', label='Spline cubique (N=16)')
-plt.plot(ti, y_rk4_16, 'bx:', label='RK4 (N=16)', markersize=8)
+plt.plot(ti, y_rk4, 'bx:', label='RK4 (N=16)', markersize=8)
 plt.xlabel('Temps t')
 plt.ylabel('y(t)')
 plt.title('Figure 3 : Comparaison des méthodes numériques (N=16)')
